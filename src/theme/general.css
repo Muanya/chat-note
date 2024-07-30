@@ -1,0 +1,14 @@
+body {
+    background-color: var(--ion-color-secondary);
+}
+
+ion-app {
+    padding: 16px;
+    background-color: var(--ion-color-secondary);
+
+}
+
+ion-content {
+    padding: 16px;
+    box-sizing: border-box;
+}

@@ -1,0 +1,42 @@
+ion-item {
+    --inner-padding-bottom: 0;
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    --inner-padding-top: 0;
+  }
+
+.divider-with-text {
+    display: flex;
+    align-items: center;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.divider-text {
+    padding: 0 16px;
+    white-space: nowrap;
+}
+
+.custom-input {
+    --border-radius: 20px;
+    --padding: 5px;
+    --bg: var(--ion-color-secondary)
+}
+
+
+.custom-input {
+  border-color: var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg);
+  padding: var(--padding);
+  }
+
+  .custom-input ion-input {
+    border: none;
+    background: var(--bg);
+  }
+  
