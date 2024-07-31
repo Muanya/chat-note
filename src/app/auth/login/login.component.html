@@ -1,0 +1,44 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <!-- email -->
+  <ion-row class="ion-no-padding">
+    <ion-col class="ion-no-padding">
+      <ion-list class="ion-no-padding">
+        <ion-item lines="none" class="ion-no-padding custom-input">
+          <ion-input
+            label="Email"
+            labelPlacement="floating"
+            formControlName="email"
+            type="email"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+
+  <!-- password  -->
+  <ion-row>
+    <ion-col>
+      <ion-list class="ion-no-padding">
+        <ion-item class="ion-no-padding custom-input">
+          <ion-input
+            label="Password"
+            labelPlacement="floating"
+            formControlName="password"
+            type="password"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+
+  <!-- button -->
+  <ion-row>
+    <ion-col>
+      <div class="ion-margin-top">
+        <ion-button type="submit" color="primary" *ngIf="!isAuthenticating" expand="block" [disabled]="!loginForm.valid">
+          Login
+        </ion-button>
+      </div>
+    </ion-col>
+  </ion-row>
+</form>

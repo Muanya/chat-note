@@ -1,87 +1,63 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Sign up</ion-title>
+    <ion-title>{{isLogin ? "Login" : "Sign Up"}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-no-padding">
+      <!-- body -->
+      <ion-col sizeSm="6" offsetSm="6">
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" class="ion-text-center">
+            <ion-text color="primary">
+              <h1>{{isLogin ? "Login" : "Sign Up"}} Account</h1>
+            </ion-text>
 
-  <form>
-    <ion-grid class="ion-no-padding">
-      <ion-row>
-        <ion-col sizeSm="6" offsetSm="6">
-
-          <ion-row class="ion-justify-content-center ion-align-items-center">
-            <ion-col size="12" class="ion-text-center">
-              <ion-text color="primary">
-                <h1>Sign Up Account</h1>
-              </ion-text>
-
-              <ion-text color="primary">
-                <h6>Enter your personal details to create account</h6>
-              </ion-text>
-            </ion-col>
-          </ion-row>
-          
-
-          <!-- Divider line with text -->
-          <ion-row class="ion-justify-content-center ion-align-items-center">
-            <ion-col size="12" class="ion-text-center">
-              <div class="divider-with-text">
-                <div class="divider-line"></div>
-                <ion-text>
-                  <div class="divider-text">Or</div>
-                </ion-text>
-                <div class="divider-line"></div>
-              </div>
-            </ion-col>
-          </ion-row>
-
-        <ion-row>
-          <ion-col size="5">
-            <ion-list class="ion-no-padding">
-              <ion-item lines="none" class="ion-no-padding custom-input">
-                <ion-input label="First Name" labelPlacement="floating" name="fName" type="text"></ion-input>
-              </ion-item>
-            </ion-list>
-            </ion-col>
-
-            <ion-col size="5">
-              <ion-list class="ion-no-padding">
-                <ion-item class="ion-no-padding custom-input">
-                <ion-input label="Last Name" labelPlacement="floating" name="lName"
-                  type="text"></ion-input>
-              </ion-item>
-              
-            </ion-list>
+            <ion-text color="primary">
+              <h6 *ngIf="!isLogin">Enter your personal details to create account</h6>
+              <h6 *ngIf="isLogin">Enter your personal details to login to your account</h6>
+            </ion-text>
           </ion-col>
         </ion-row>
 
+        <!-- Divider line with text -->
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col class="ion-text-center">
+            <div class="divider-with-text">
+              <div class="divider-line"></div>
+              <ion-text>
+                <div class="divider-text">Or</div>
+              </ion-text>
+              <div class="divider-line"></div>
+            </div>
+          </ion-col>
+        </ion-row>
 
-          <ion-list class="ion-no-padding">
-            <ion-item lines="none" class="ion-no-padding custom-input">
-              <ion-input label="Email" labelPlacement="floating" name="email" type="email"></ion-input>
-            </ion-item>
+        <!-- Sign up form  -->
+        <ion-row *ngIf="!isLogin" class="ion-no-padding">
+          <ion-col>
+            <app-signup></app-signup>
+          </ion-col>
+        </ion-row>
 
-            <br>
-            <ion-item class="ion-no-padding custom-input">
-              <ion-input label="Password" labelPlacement="floating" name="password"
-                type="password"></ion-input>
-            </ion-item>
-            
-          </ion-list>
-        </ion-col>
-      </ion-row>
+        <!-- Login form -->
+        <ion-row *ngIf="isLogin" class="ion-no-padding">
+          <ion-col>
+            <app-login></app-login>
+          </ion-col>
+        </ion-row>
 
-      <ion-row>
-        <ion-col SizeSm="6" offsetSm="6">
-          <ion-list>
-            <ion-button type="submit" color="primary">Login</ion-button>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-
-    </ion-grid>
-  </form>
-
+        <ion-row>
+          <ion-col sizeSm="6" offsetSm="3">
+              <ion-button type="button" color="primary" fill="clear" expand="block"
+                (click)="toggleAuthMode()">
+                Go to {{!isLogin ? "Login" : "Sign up"}}
+              </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
