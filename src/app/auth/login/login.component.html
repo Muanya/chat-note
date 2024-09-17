@@ -3,7 +3,7 @@
   <ion-row class="ion-no-padding">
     <ion-col class="ion-no-padding">
       <ion-list class="ion-no-padding">
-        <ion-item lines="none" class="ion-no-padding custom-input">
+        <ion-item class="custom-input">
           <ion-input
             label="Email"
             labelPlacement="floating"
@@ -19,7 +19,7 @@
   <ion-row>
     <ion-col>
       <ion-list class="ion-no-padding">
-        <ion-item class="ion-no-padding custom-input">
+        <ion-item class="custom-input">
           <ion-input
             label="Password"
             labelPlacement="floating"
@@ -35,7 +35,13 @@
   <ion-row>
     <ion-col>
       <div class="ion-margin-top">
-        <ion-button type="submit" color="primary" *ngIf="!isAuthenticating" expand="block" [disabled]="!loginForm.valid">
+        <ion-button
+          type="submit"
+          color="primary"
+          *ngIf="!isAuthenticating"
+          expand="block"
+          [disabled]="!loginForm.valid"
+        >
           Login
         </ion-button>
       </div>

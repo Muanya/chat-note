@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,22 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isAuthenticating: boolean = false;
 
-  constructor(private service: AuthService, private formBuilder: FormBuilder) {}
+  constructor(
+    private service: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(7)]],
+    });
+
+    this.service.user$.subscribe((user) => {
+      if (user) {
+        this.router.navigate(['./']);
+      }
     });
   }
 

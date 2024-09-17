@@ -1,37 +1,27 @@
 ion-item {
-    --inner-padding-bottom: 0;
-    --inner-padding-end: 0;
-    --inner-padding-start: 0;
-    --inner-padding-top: 0;
-  }
-
-.custom-input {
-    --border-radius: 20px;
-    --padding: 5px;
-    --bg: var(--ion-color-secondary)
+  --inner-padding-bottom: 0;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --inner-padding-top: 0;
 }
 
+.custom-input {
+  --border-radius: 20px;
+  --padding: 1px;
+}
 
 .custom-input {
-  border-color: var(--border-color);
   border-radius: var(--border-radius);
-  background-color: var(--bg);
   padding: var(--padding);
-  }
+}
 
-  .custom-input ion-input {
-    border: none;
-    background: var(--bg);
-  }
+.name-input-container {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 25px;
+  width: 100%;
+}
 
-  .name-input-container {
-    display: flex;
-    justify-content: space-between;
-    column-gap: 25px;
-    width: 100%;
-  }
-
-  .name-input-container ion-list {
-    flex: 1;
-  }
-  
+.name-input-container ion-list {
+  flex: 1;
+}
