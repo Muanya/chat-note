@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
@@ -12,6 +12,7 @@ import {
 import { Preferences } from '@capacitor/preferences';
 import { AuthResponse, Autobind, RegisterResponse, User } from './auth.model';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 type UserSub = User | null;
 
@@ -20,16 +21,15 @@ type UserSub = User | null;
 })
 export class AuthService {
   _user = new BehaviorSubject<UserSub>(null);
-  private _token: string | undefined;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   get user$() {
     return this._user.asObservable();
   }
 
   userIsAuthenticated(): Observable<boolean> {
-    return this.user$.pipe(map((usr) => !usr));
+    return this.user$.pipe(map((usr) => !!usr));
   }
 
   @Autobind
@@ -53,18 +53,7 @@ export class AuthService {
   }
   getUserDetails(token: string): Observable<RegisterResponse> {
     const url = 'http://127.0.0.1:8080/users/';
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    // Pass headers to the request options
-    const options = {
-      headers: headers,
-      withCredentials: true, // Include credentials if needed
-    };
-
-    return this.httpClient.get<RegisterResponse>(url, options);
+    return this.httpClient.get<RegisterResponse>(url);
   }
 
   register(
@@ -82,12 +71,10 @@ export class AuthService {
       password: password,
     };
 
-    return this.httpClient
-      .post<RegisterResponse>(url, data, { withCredentials: true })
-      .pipe(
-        take(1),
-        switchMap((res) => this.login(res.email, password))
-      );
+    return this.httpClient.post<RegisterResponse>(url, data).pipe(
+      take(1),
+      switchMap((res) => this.login(res.email, password))
+    );
   }
 
   @Autobind
@@ -125,6 +112,31 @@ export class AuthService {
 
     return user;
   }
-}
 
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjY1ODQ4NzAsInN1YiI6Ik1vb25BZG1pbiJ9.lsaSN47Y0DgOSGvim0N7r45gfIF4CJV8LeHLINwliJg
+  autoLogin(): Observable<boolean> {
+    return of(false)
+  }
+
+  authenticatedGuard(isAuthPage: boolean): Observable<boolean> {
+    return this.userIsAuthenticated().pipe(
+      take(1),
+      switchMap((isAuthenticated) => {
+        if (isAuthenticated) {
+          return of(isAuthenticated);
+        }
+
+        return this.autoLogin();
+      }),
+      switchMap((isAuthenticated) => {
+        return isAuthPage ? of(!isAuthenticated) : of(isAuthenticated);
+      }),
+      tap((isAuthenticated) => {
+        if (!isAuthenticated && !isAuthPage) {
+          this.router.navigate(['/', 'authenticate']);
+        } else if (!isAuthenticated && isAuthPage) {
+          this.router.navigate(['/']);
+        }
+      })
+    );
+  }
+}

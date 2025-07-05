@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage {
-  isLogin = false;
+  isLogin = true;
 
   constructor() {}
 
